@@ -3,14 +3,10 @@ package components;
 public class MainRunner {
     public static void main(String[] args){
 
-        // create logic class
-        EncryptionAlgorithms algorithms = new EncryptionAlgorithms();
-        BasicLogic logic = new BasicLogic();
-
         // apply cipher algorithm
-        String cipherText = EncryptionAlgorithms.fourSquareAlg("hello world", "example", "keyword");
+        String cipherText = EncryptionAlgorithms.fourSquareAlg("help me obiwan kenobi", "example", "keyword");
 
-        System.out.println("Stopped Successfully!");
+        System.out.println("Ciphertext: " + cipherText);
     }
 
 

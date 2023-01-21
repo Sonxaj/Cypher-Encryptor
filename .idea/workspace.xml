@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8209338b-9267-4ec1-82f7-051de847e28f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BasicLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BasicLogic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/EncryptionAlgorithms.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EncryptionAlgorithms.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MainRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainRunner.java" afterDir="false" />
     </list>
@@ -80,16 +79,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/components/MainRunner.java</url>
-          <line>12</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

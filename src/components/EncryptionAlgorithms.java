@@ -1,7 +1,6 @@
 package components;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class EncryptionAlgorithms {
 
@@ -33,12 +32,14 @@ public class EncryptionAlgorithms {
 
     // Four-Square
     public static String fourSquareAlg(String plaintext, String key1, String key2){
+
         // if keyword 2 is not given, generate a random one of equal length
         if (key2.isEmpty()){
             key2 = BasicLogic.randomString(key1.length());
         }
 
         // start with Q2 and Q4 squares, since they're basically given
+
         char[][] q2 = new char[5][5];
         char[][] q4 = new char[5][5];
 
@@ -56,47 +57,37 @@ public class EncryptionAlgorithms {
         }
 
 
-        // generate Q2 (keyword 1) and Q3 (keyword 2)
-        HashMap<Integer, Character> validCharactersKey1 = new HashMap<>();
-        HashMap<Integer, Character> validCharactersKey2 = new HashMap<>();
+        // generate Q1 (keyword 1) and Q3 (keyword 2)
 
-        char[] validCharactersKey1Array = new char[25];
-        char[] validCharactersKey2Array = new char[25];
-
-        int arrayPosition = 0;
+        ArrayList<Character> validCharactersKey1 = new ArrayList<>();
+        ArrayList<Character> validCharactersKey2 = new ArrayList<>();
 
         for (char c: key1.toCharArray()) {
-            if(validCharactersKey1.containsKey(BasicLogic.charToInt(c))){
+            if(validCharactersKey1.contains(c)){
                 continue;
             }
-            validCharactersKey1.put(BasicLogic.charToInt(c), c);
-            validCharactersKey1Array[arrayPosition++] = c;
+            validCharactersKey1.add(c);
         }
 
         for (int i = 0; i < 26; i++) {
-            if(validCharactersKey1.containsKey(i) || i == 16){
+            if(validCharactersKey1.contains(BasicLogic.intToChar(i)) || i == 16){ // check for letter Q
                 continue;
             }
-            validCharactersKey1.put(i, BasicLogic.intToChar(i));
-            validCharactersKey1Array[arrayPosition++] = BasicLogic.intToChar(i);
+            validCharactersKey1.add(BasicLogic.intToChar(i));
         }
-
-        arrayPosition = 0;
 
         for (char c: key2.toCharArray()) {
-            if(validCharactersKey2.containsKey(BasicLogic.charToInt(c))){
+            if(validCharactersKey2.contains(c)){
                 continue;
             }
-            validCharactersKey2.put(BasicLogic.charToInt(c), c);
-            validCharactersKey2Array[arrayPosition++] = c;
+            validCharactersKey2.add(c);
         }
 
         for (int i = 0; i < 26; i++) {
-            if(validCharactersKey2.containsKey(i) || i == 16){
+            if(validCharactersKey2.contains(BasicLogic.intToChar(i)) || i == 16){
                 continue;
             }
-            validCharactersKey2.put(i, BasicLogic.intToChar(i));
-            validCharactersKey2Array[arrayPosition++] = BasicLogic.intToChar(i);
+            validCharactersKey2.add(BasicLogic.intToChar(i));
         }
 
 
@@ -107,8 +98,8 @@ public class EncryptionAlgorithms {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
 
-                q1[i][j] = validCharactersKey1Array[i+i2];
-                q3[i][j] = validCharactersKey2Array[i+i2];
+                q1[i][j] = validCharactersKey1.get(i+i2);
+                q3[i][j] = validCharactersKey2.get(i+i2);
                 i2++;
             }
             i2--;
@@ -120,14 +111,41 @@ public class EncryptionAlgorithms {
         // after working this out, the 'coordinates' of the result encrypted text has
         // the following pattern:
         //
-        //      q1 --------> iq1 = iq2, jq1 = jq4
+        //      q1 --------> i position of q1 = i position of q2; j position of q1 = j position of q4
         //
-        //      q3 --------> iq3 = iq4, jq3 = jq2
+        //      q3 --------> i position of q3 = i position of q4; j position of q3 = j position of q2
 
+        StringBuilder builder = new StringBuilder();
 
+        String cleanPlaintext = plaintext.replaceAll("\\s", "");
 
+        for(int position = 0; position < cleanPlaintext.length()-1; position += 2){
 
-        return "";
+            // searching q2
+            for (int iOuter = 0; iOuter < 5; iOuter++) {
+                for (int jOuter = 0; jOuter < 5; jOuter++) {
+
+                    // hit on q2
+                    if(q2[iOuter][jOuter] == cleanPlaintext.toCharArray()[position]){
+
+                        // searching q4
+                        for (int iInner = 0; iInner < 5; iInner++) {
+                            for (int jInner = 0; jInner < 5; jInner++) {
+
+                                // hit on q4
+                                if(q4[iInner][jInner] == cleanPlaintext.toCharArray()[position+1]){
+
+                                    builder.append(q1[iOuter][jInner]);
+                                    builder.append(q3[iInner][jOuter]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return builder.toString();
     }
 
 
