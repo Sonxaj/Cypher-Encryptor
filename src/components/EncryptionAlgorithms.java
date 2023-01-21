@@ -144,7 +144,6 @@ public class EncryptionAlgorithms {
                 }
             }
         }
-
         return builder.toString();
     }
 
