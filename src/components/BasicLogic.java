@@ -1,13 +1,15 @@
 package components;
 
+import java.util.Random;
+
 public class BasicLogic {
 
     // conversion stuff
-    public int charToInt(char input){
+    public static int charToInt(char input){
         return (input - 97);
     }
 
-    public char intToChar(int input){
+    public static char intToChar(int input){
         return (char)(input + 97);
     }
 
@@ -27,5 +29,18 @@ public class BasicLogic {
         sBuilder.append("x".repeat(Math.max(0, 512 - sBuilder.length())));
 
         return sBuilder.toString();
+    }
+
+    public static String randomString(int length){
+
+        Random random = new Random();
+        int upperBound = 26; // letter z
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            stringBuilder.append(intToChar(random.nextInt(upperBound)));
+        }
+
+        return stringBuilder.toString();
     }
 }

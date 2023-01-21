@@ -8,10 +8,9 @@ public class MainRunner {
         BasicLogic logic = new BasicLogic();
 
         // apply cipher algorithm
-        String cipherText = algorithms.hillCipherAlg("act", "GYBNQKURP");
+        String cipherText = EncryptionAlgorithms.fourSquareAlg("hello world", "example", "keyword");
 
-        // print
-        printResult("act", "GYBNQKURP", cipherText);
+        System.out.println("Stopped Successfully!");
     }
 
 
